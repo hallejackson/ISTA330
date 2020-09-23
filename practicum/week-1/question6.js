@@ -6,5 +6,20 @@ output: 3
 */
 
 var median = function(input) {
+    sort(input)
+    let mid = Math.floor(input.length/2)
+    console.log('mid:', mid)
+    if (input.length%2 == 0)
+    {
+        
+        return (input[mid-1]+input[mid])/2
+    
+    }
+    else
+    {
+        
+        return input[mid]
+
+    }
 
 };
