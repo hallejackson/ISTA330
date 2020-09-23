@@ -15,5 +15,18 @@ output: 4 because the following partition has the highest number of balanced sub
 */
 
 var maxBalanceNumber = function(input) {
+  let mnb = 0
+  for (let i = 0; i < Math.pow(2,s.length-1); i+= 1)
+  {
+    let p = partition(s,i.toString(2).padStart(s.length-1,0))
+    let nb = numbal(p)
+    if(nb > mnb)
+    {
+      mnb = nb
+    }
+    console.log(p,nb)
+    
+  }
+  return mnb
 
 };
