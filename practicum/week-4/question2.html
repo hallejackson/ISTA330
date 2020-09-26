@@ -100,57 +100,61 @@
             rose,
             waterlily
         ];
-        function sort(arr) {
-            //Selection sort
-            for (var i = 0; i < arr.length; i++) {
-                for(var j = i + 1; j < arr.length - 1; j++) {   
-                    if (arr[i].name > arr[j].name) {
-                        temp = arr[i];
-                        arr[i] = arr[j];
-                        arr[j] = temp;
+        var sorted = false
+        var imageclick = function(event){
+            let lastp = event.path[0].currentSrc.split('/').slice(-1)[0]
+            if(!sorted)
+            {
+                sort(flowers)
+                sorted = true
+            }
+            //  c d a b
+            while (flowers[0].picture != lastp)
+            {
+                flowers.push(flowers.shift())
+            }
+
+            btable(flowers,4)
+
+        }
+        var btable = function(flowers,n){
+           let table = '<table><tr>'
+        for (let i = 0; i < flowers.length;i++)
+        {
+            table += `<td>
+                <img src="images/${flowers[i].picture}" onclick="imageclick(event)">
+                <div style="text-align: center;">${flowers[i].name}</div>
+                </td>`
+            if (i == n-1)
+            {
+                table += '<tr>'
+            }
+        }
+        table += '</tr></table>'
+        let div = document.getElementById('flowersDiv')
+        div.innerHTML = table
+       }
+        var sort = function(input){
+            for (let i = 0; i < input.length; i+= 1)
+            {
+                let minpos = i
+                for(let j = minpos; j < input.length; j += 1)
+                {
+                    if(input[j].name< input[minpos].name)
+                    {
+                        minpos = j
                     }
                 }
+                let temp = input[i]
+                input[i] = input[minpos]
+                input[minpos] = temp
             }
-            return arr;
         }
-        var sorted = sort(flowers);
-        console.log(sorted);
-        let stringInDiv = "<table>";
-        let keepTrack = 0;
-        for(var i = 0; i < 2; i++){
-            stringInDiv += "<tr>";
-            for(var j = 0; j < 4; j++){
 
-                stringInDiv += '<td><img src="images/' + sorted[keepTrack].picture + '" onclick="sortByPicFunc(this,'+ keepTrack+')"><div style="text-align: center;">' + sorted[keepTrack].name + '</div></td>';
-                keepTrack++;
-            }
-            stringInDiv += "</tr>";
-        }
-        stringInDiv += "</table>";
-        document.getElementById("flowersDiv").innerHTML = stringInDiv;
+       btable(flowers,4)
 
-        function sortByPicFunc(elem, startingPoint){
-            let keepTrack = startingPoint;
-            let newString = "<table>";
+
             
-            for(var i = 0; i < 2; i++){
-                newString += "<tr>";
-                for(var j = 0; j < 4; j++){
-                    if(keepTrack == sorted.length){
-                        keepTrack = 0;
-                    }
-
-                    console.log(sorted[keepTrack].name + "where keep track = " + keepTrack)
-                    newString += '<td><img src="images/' + sorted[keepTrack].picture + '" onclick="sortByPicFunc(this,'+ keepTrack+')"><div style="text-align: center;">' + sorted[keepTrack].name + '</div></td>';
-                    keepTrack++;
-                }
-                newString += "</tr>";
-            }
-            newString += "</table>";
-
-            document.getElementById("flowersDiv").innerHTML = newString;
-
-        }
     </script>
 </body>
 
