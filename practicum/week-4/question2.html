@@ -100,6 +100,57 @@
             rose,
             waterlily
         ];
+        function sort(arr) {
+            //Selection sort
+            for (var i = 0; i < arr.length; i++) {
+                for(var j = i + 1; j < arr.length - 1; j++) {   
+                    if (arr[i].name > arr[j].name) {
+                        temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+        var sorted = sort(flowers);
+        console.log(sorted);
+        let stringInDiv = "<table>";
+        let keepTrack = 0;
+        for(var i = 0; i < 2; i++){
+            stringInDiv += "<tr>";
+            for(var j = 0; j < 4; j++){
+
+                stringInDiv += '<td><img src="images/' + sorted[keepTrack].picture + '" onclick="sortByPicFunc(this,'+ keepTrack+')"><div style="text-align: center;">' + sorted[keepTrack].name + '</div></td>';
+                keepTrack++;
+            }
+            stringInDiv += "</tr>";
+        }
+        stringInDiv += "</table>";
+        document.getElementById("flowersDiv").innerHTML = stringInDiv;
+
+        function sortByPicFunc(elem, startingPoint){
+            let keepTrack = startingPoint;
+            let newString = "<table>";
+            
+            for(var i = 0; i < 2; i++){
+                newString += "<tr>";
+                for(var j = 0; j < 4; j++){
+                    if(keepTrack == sorted.length){
+                        keepTrack = 0;
+                    }
+
+                    console.log(sorted[keepTrack].name + "where keep track = " + keepTrack)
+                    newString += '<td><img src="images/' + sorted[keepTrack].picture + '" onclick="sortByPicFunc(this,'+ keepTrack+')"><div style="text-align: center;">' + sorted[keepTrack].name + '</div></td>';
+                    keepTrack++;
+                }
+                newString += "</tr>";
+            }
+            newString += "</table>";
+
+            document.getElementById("flowersDiv").innerHTML = newString;
+
+        }
     </script>
 </body>
 
